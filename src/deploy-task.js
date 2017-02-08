@@ -45,7 +45,9 @@ function emptyAzureCdnTargetFolder(blobService, options, loggerCallback) {
             }
             blobs.entries.forEach(function (blob, next) {
                 loggerCallback("deleting file", blob.name);
-                var exec = options.testRun ? noop : blobService.deleteBlob;
+                var exec = options.testRun ||
+                  (options.deleteOlderThanDate && options.deleteOlderThanDate < Date.parse(blob.lastModified))
+                  ? noop : blobService.deleteBlob;
                 exec.call(blobService, options.containerName, blob.name, function (err, success) {
                     if (err) {
                         loggerCallback("Error while deleting blob", blob.name);

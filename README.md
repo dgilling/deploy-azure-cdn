@@ -37,6 +37,7 @@ var opts = {
     containerOptions: {publicAccessLevel: "blob"}, // container options
     folder: 'deploy/source', // path within container
     deleteExistingBlobs: true, // true means recursively deleting anything under folder
+    deleteOlderThanDate, // If set, then only blobs who's lastModified is smaller than deleteOlderThanDate will be deleted
     concurrentUploadThreads: 2, // number of concurrent uploads, choose best for your network condition
     zip: true, // gzip files if they become smaller after zipping, content-encoding header will change if file is zipped
     metadata: {cacheControl: 'public, max-age=31556926'}, // metadata for each uploaded file
@@ -57,6 +58,7 @@ deploy(opts, files, logger, function(err){
   - `containerOptions`: {publicAccessLevel: "blob"} - container options
   - `folder`: '', // path within container. Default is root directory of container
   - `deleteExistingBlobs`: true, // set it to false to skip recursive deleting blobs in folder
+  - `deleteOlderThanDate`: undefined // If set, then only blobs who's lastModified is smaller than deleteOlderThanDate will be deleted
   - `concurrentUploadThreads` : 10, // number of concurrent uploads, choose best for your network condition
   - `zip`: false, // true if want to gzip the files before uploading. File will be zipped only if compressed file is smaller than original
   - `metadata`: {cacheControl: 'public, max-age=31556926'} // metadata for each uploaded file
