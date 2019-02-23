@@ -153,7 +153,7 @@ function clone(obj) {
  * @param cb - standard node.js callback. If first parameter is undefined then upload is successful
  ` */
 module.exports = function deploy(opt, files, loggerCallback, cb) {
-    var options = extend({}, {
+    var options = extend(true, {}, {
         serviceOptions: [], // custom arguments to azure.createBlobService
         containerName: null, // container name, required
         containerOptions: {publicAccessLevel: "blob"}, // container options
@@ -188,7 +188,7 @@ module.exports = function deploy(opt, files, loggerCallback, cb) {
         var destFileName = path.join(options.folder, file.dest || relativePath);
         var sourceFile = file.path;
         var metadata = clone(options.metadata);
-        metadata.contentType = mime.lookup(sourceFile);
+        metadata.contentType = mime.getType(sourceFile);
         if (options.zip) {
             createFolderAndClearPromise.then(function () {
                 return gzipFile(sourceFile)
