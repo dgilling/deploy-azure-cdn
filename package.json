@@ -27,7 +27,7 @@
   "homepage": "https://github.com/bestander/deploy-azure-cdn",
   "dependencies": {
     "async": "^2.1.2",
-    "azure-storage": "^2.10.2",
+    "azure-storage": "^2.10.3",
     "mime": "^2.4.0",
     "node.extend": "^2.0.2",
     "q": "^1.4.1"
